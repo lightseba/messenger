@@ -1,5 +1,0 @@
-POST http://localhost:9090/shoppingList 'Content-Type: application/json' { "desc": "Peppers 🌶", "priority": 5 }
-
-curl -i -X POST -H 'Content-Type: application/json' -d '{ "desc": "Peppers 🌶", "priority": 5 }' http://localhost:9090/shoppingList
-
-curl -i -X DELETE http://localhost:9090/shoppingList/-798383

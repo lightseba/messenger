@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 val kotlinVersion = "1.4.0"
 val serializationVersion = "1.0.0-RC"
 val ktorVersion = "1.4.0"
+val jbcryptVersion = "0.4"
 
 plugins {
     kotlin("multiplatform") version "1.4.0"
@@ -15,6 +16,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+    maven(url = "https://kotlin.bintray.com/kotlinx/")
     mavenCentral()
     jcenter()
     maven("https://kotlin.bintray.com/kotlin-js-wrappers/") // react, styled, ...
@@ -35,6 +37,8 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("org.mindrot:jbcrypt:$jbcryptVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
             }
         }
         val commonTest by getting {
@@ -52,21 +56,29 @@ kotlin {
                 implementation("ch.qos.logback:logback-classic:1.2.3")
                 implementation("io.ktor:ktor-websockets:$ktorVersion")
                 implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.1.1")
+                implementation("io.ktor:ktor-auth:$ktorVersion")
+                implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
+                implementation("io.ktor:ktor-html-builder:$ktorVersion")
+                implementation("io.ktor:ktor-server-sessions:$ktorVersion")
             }
         }
 
         val jsMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-js:$ktorVersion") //include http&websockets
+                
+                implementation("org.jetbrains:kotlin-react-router-dom:5.1.2-pre.114-kotlin-1.4.0")
 
                 //ktor client js json
                 implementation("io.ktor:ktor-client-json-js:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization-js:$ktorVersion")
+                implementation("io.ktor:ktor-client-websockets-js:$ktorVersion")
 
                 implementation("org.jetbrains:kotlin-react:16.13.1-pre.110-kotlin-1.4.0")
                 implementation("org.jetbrains:kotlin-react-dom:16.13.1-pre.110-kotlin-1.4.0")
                 implementation(npm("react", "16.13.1"))
                 implementation(npm("react-dom", "16.13.1"))
+                implementation(npm("@js-joda/timezone", "2.3.0"))
             }
         }
     }
